@@ -3,32 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HVAC Service Calculator</title>
+  <title>HVAC System Calculator</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>HVAC Service Calculator</h1>
+    <h1>HVAC System Calculator</h1>
+    <form id="hvacForm">
+      <label for="refrigerant">Select Refrigerant:</label>
+      <select id="refrigerant" required>
+        <option value="R22">R22 ($250/lb)</option>
+        <option value="R410a">R410a ($150/lb)</option>
+        <option value="R454b">R454b ($99/lb)</option>
+        <option value="R32">R32 ($89/lb)</option>
+      </select>
 
-    <label for="refrigerant">Select Refrigerant:</label>
-    <select id="refrigerant">
-      <option value="R22">R22 - $250/lb</option>
-      <option value="R410a">R410a - $150/lb</option>
-      <option value="R454b">R454b - $99/lb</option>
-      <option value="R32">R32 - $89/lb</option>
-    </select>
+      <label for="quantity">Quantity (lbs):</label>
+      <input type="number" id="quantity" min="0" step="0.1" required>
 
-    <label for="quantity">Quantity (lbs):</label>
-    <input type="number" id="quantity" min="0" placeholder="Enter amount in pounds">
+      <label for="service">Select Service:</label>
+      <select id="service" required>
+        <option value="installation">Installation ($500)</option>
+        <option value="repair">Repair ($200)</option>
+        <option value="maintenance">Maintenance ($100)</option>
+      </select>
 
-    <label for="service">Select Service:</label>
-    <select id="service">
-      <option value="installation">Installation - $500</option>
-      <option value="repair">Repair - $200</option>
-      <option value="maintenance">Maintenance - $100</option>
-    </select>
-
-    <button onclick="calculateTotal()">Calculate Total</button>
+      <button type="submit">Calculate Total</button>
+    </form>
 
     <div id="result"></div>
   </div>
