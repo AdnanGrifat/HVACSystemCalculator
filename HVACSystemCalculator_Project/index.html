@@ -1,88 +1,38 @@
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HVAC Service Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>HVAC Service Calculator</h1>
 
-public class HVACSystemCalculatorGUI {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("HVAC System Calculator");
-        frame.setSize(400, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(null);
+    <label for="refrigerant">Select Refrigerant:</label>
+    <select id="refrigerant">
+      <option value="R22">R22 - $250/lb</option>
+      <option value="R410a">R410a - $150/lb</option>
+      <option value="R454b">R454b - $99/lb</option>
+      <option value="R32">R32 - $89/lb</option>
+    </select>
 
-        JLabel labelRefrigerant = new JLabel("Select Refrigerant:");
-        labelRefrigerant.setBounds(20, 20, 150, 25);
-        frame.add(labelRefrigerant);
+    <label for="quantity">Quantity (lbs):</label>
+    <input type="number" id="quantity" min="0" placeholder="Enter amount in pounds">
 
-        String[] refrigerants = {"R22", "R410a", "R454b", "R32"};
-        JComboBox<String> refrigerantBox = new JComboBox<>(refrigerants);
-        refrigerantBox.setBounds(180, 20, 150, 25);
-        frame.add(refrigerantBox);
+    <label for="service">Select Service:</label>
+    <select id="service">
+      <option value="installation">Installation - $500</option>
+      <option value="repair">Repair - $200</option>
+      <option value="maintenance">Maintenance - $100</option>
+    </select>
 
-        JLabel labelPounds = new JLabel("Enter Quantity (lbs):");
-        labelPounds.setBounds(20, 60, 150, 25);
-        frame.add(labelPounds);
+    <button onclick="calculateTotal()">Calculate Total</button>
 
-        JTextField textPounds = new JTextField();
-        textPounds.setBounds(180, 60, 150, 25);
-        frame.add(textPounds);
+    <div id="result"></div>
+  </div>
 
-        JLabel labelService = new JLabel("Select Service:");
-        labelService.setBounds(20, 100, 150, 25);
-        frame.add(labelService);
-
-        String[] services = {"installation", "repair", "maintenance"};
-        JComboBox<String> serviceBox = new JComboBox<>(services);
-        serviceBox.setBounds(180, 100, 150, 25);
-        frame.add(serviceBox);
-
-        JButton calculateBtn = new JButton("Calculate");
-        calculateBtn.setBounds(130, 150, 120, 30);
-        frame.add(calculateBtn);
-
-        JTextArea resultArea = new JTextArea();
-        resultArea.setBounds(20, 200, 340, 120);
-        resultArea.setEditable(false);
-        frame.add(resultArea);
-
-        calculateBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Map<String, Double> refrigerantPrices = new HashMap<>();
-                refrigerantPrices.put("R22", 250.0);
-                refrigerantPrices.put("R410a", 150.0);
-                refrigerantPrices.put("R454b", 99.0);
-                refrigerantPrices.put("R32", 89.0);
-
-                Map<String, Integer> serviceCosts = new HashMap<>();
-                serviceCosts.put("installation", 500);
-                serviceCosts.put("repair", 200);
-                serviceCosts.put("maintenance", 100);
-
-                try {
-                    String refrigerant = (String) refrigerantBox.getSelectedItem();
-                    double pounds = Double.parseDouble(textPounds.getText());
-                    String service = (String) serviceBox.getSelectedItem();
-
-                    double refrigerantCost = refrigerantPrices.getOrDefault(refrigerant, 0.0) * pounds;
-                    int serviceCost = serviceCosts.getOrDefault(service, 0);
-                    double total = refrigerantCost + serviceCost;
-
-                    resultArea.setText("--- Summary ---\n");
-                    resultArea.append("Refrigerant: " + refrigerant + "\n");
-                    resultArea.append("Quantity: " + pounds + " lbs\n");
-                    resultArea.append("Refrigerant Cost: $" + refrigerantCost + "\n");
-                    resultArea.append("Service: " + service + "\n");
-                    resultArea.append("Service Cost: $" + serviceCost + "\n");
-                    resultArea.append("Total Cost: $" + total);
-
-                } catch (NumberFormatException ex) {
-                    resultArea.setText("Please enter a valid number for pounds.");
-                }
-            }
-        });
-
-        frame.setVisible(true);
-    }
-}
+  <script src="script.js"></script>
+</body>
+</html>
